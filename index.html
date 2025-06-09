@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Background Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Make sure padding/margins do not interfere */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+    /* Video background style */
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+      background: #000;
+    }
+    /* Overlay content */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      background: rgba(0,0,0, 0.40);
+      text-align: center;
+    }
+
+    .overlay h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+      letter-spacing: 1px;
+    }
+
+    .overlay p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+    }
+
+    .overlay a.button {
+      display: inline-block;
+      background-color: #ff5c5c;
+      color: #fff;
+      padding: 1rem 2.2rem;
+      border-radius: 40px;
+      font-size: 1.15rem;
+      text-decoration: none;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.30);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .overlay a.button:hover {
+      background-color: #ff2a2a;
+      box-shadow: 0 5px 24px rgba(0,0,0,0.45);
+    }
+
+    @media (max-width: 600px) {
+      .overlay h1 {
+        font-size: 2rem;
+      }
+      .overlay p {
+        font-size: 1rem;
+      }
+      .overlay a.button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video id="bg-video" autoplay loop muted playsinline>
+    <source src="https://raw.githack.com/Ravine-Studios/Ravine-Studios/refs/heads/main/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="overlay">
+    <h1>Welcome to Our Landing Page</h1>
+    <p>Create stunning websites with video backgrounds!</p>
+    <a href="#" class="button">Get Started</a>
+  </div>
+</body>
+</html>
