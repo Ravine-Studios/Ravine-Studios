@@ -5,7 +5,6 @@
   <title>Ravine Studios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Make sure padding/margins do not interfere */
     html,
     body {
       height: 100%;
@@ -15,7 +14,6 @@
       overflow: hidden;
     }
 
-    /* Video background style */
     #bg-video {
       position: fixed;
       right: 0;
@@ -30,7 +28,6 @@
       background: #000;
     }
 
-    /* Overlay content */
     .overlay {
       position: absolute;
       top: 0;
@@ -55,7 +52,7 @@
 
     .overlay p {
       font-size: 1.3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.2rem; /* smaller margin for lower profile */
       text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
     }
 
@@ -78,7 +75,9 @@
 
     .elements {
       position: absolute;
-      bottom: 100px;
+      bottom: 60px; /* closer to bottom, more video in center */
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .buttons {
@@ -88,10 +87,39 @@
       justify-content: center;
     }
 
-
-    .icon-buttons{
+    .icon-buttons {
       height: 20px;
       width: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    /* Social buttons stacked vertically, low profile */
+    .social-buttons {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .social-buttons .button {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 0.35rem 1rem;      /* slimmer */
+      font-size: 0.9rem;          /* smaller text */
+      border-radius: 999px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+      width: 220px;
+      max-width: 80vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .icon-emoji {
+      display: inline-block;
+      font-size: 1rem; /* smaller icon */
     }
 
     @media (max-width: 600px) {
@@ -107,28 +135,54 @@
         font-size: 1rem;
         padding: 0.8rem 1.5rem;
       }
+
+      .social-buttons .button {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.8rem;
+        width: 200px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <video id="bg-video" autoplay="" loop="" muted="" playsinline="">
+  <video id="bg-video" autoplay loop muted playsinline>
     <source src="https://raw.githack.com/Ravine-Studios/Ravine-Studios/refs/heads/main/video.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
+
   <div class="overlay">
     <div class="elements">
       <img src="title.png" style="max-width: 600px;width: 100%;">
       <p>More information coming soon...</p>
+
       <div class="buttons">
-        <a href="mailto:ravinestudiosinc@gmail.com" class="button"><img src="mailIcon.png" class="icon-buttons"> Email</a>
+        <a href="mailto:ravinestudiosinc@gmail.com" class="button">
+          <img src="mailIcon.png" class="icon-buttons"> Email
+        </a>
         <div style="width:50px"></div>
-        <a href="https://store.steampowered.com/app/3810210" class="button"><img src="steamIcon.png" class="icon-buttons"> Wishlist</a>
+        <a href="https://store.steampowered.com/app/3810210" class="button">
+          <img src="steamIcon.png" class="icon-buttons"> Wishlist
+        </a>
+      </div>
+
+      <!-- Slim vertical social buttons -->
+      <div class="social-buttons">
+        <a href="https://bsky.app/profile/ravinestudios.ca" class="button" target="_blank" rel="noopener">
+          <span class="icon-emoji">🦋</span> Bluesky
+        </a>
+        <a href="https://www.instagram.com/ravine_studios" class="button" target="_blank" rel="noopener">
+          <span class="icon-emoji">📸</span> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@ravinestudios" class="button" target="_blank" rel="noopener">
+          <span class="icon-emoji">🎵</span> TikTok
+        </a>
+        <a href="https://x.com/Ravine_Studios" class="button" target="_blank" rel="noopener">
+          <span class="icon-emoji">✖️</span> X (Twitter)
+        </a>
       </div>
     </div>
   </div>
-
-
 </body>
 
 </html>
