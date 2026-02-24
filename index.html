@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Ravine Studios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
     html,
     body {
@@ -11,14 +12,14 @@
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     #bg-video {
       position: fixed;
-      right: 0;
-      bottom: 0;
-      transform: translateX(calc((100% - 100vw) / 2));
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       min-width: 100vw;
       min-height: 100vh;
       width: auto;
@@ -33,10 +34,10 @@
       top: 0;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       color: #fff;
       background: rgba(0, 0, 0, 0.40);
@@ -56,35 +57,42 @@
       text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
     }
 
-    .overlay a.button {
-      display: inline-block;
+    /* Primary CTA */
+    .wishlist-button {
+      display: inline-flex;
+      align-items: center;
       background-color: #fff;
       color: #000;
-      padding: 1rem 2.2rem;
+      padding: 1rem 2.5rem;
       border-radius: 40px;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       text-decoration: none;
       box-shadow: 0 5px 16px rgba(0, 0, 0, 0.30);
       transition: background 0.2s, box-shadow 0.2s;
     }
 
-    .overlay a.button:hover {
-      background-color: #aaaaaa;
+    .wishlist-button:hover {
+      background-color: #e0e0e0;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
     }
 
-    .elements {
-      position: absolute;
-      bottom: 60px; /* closer to bottom, more video in center */
-      left: 50%;
-      transform: translateX(-50%);
+    /* Email — quiet link */
+    .email-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.25s;
     }
 
-    .buttons {
-      flex-direction: row;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .email-link:hover {
+      color: #fff;
+    }
+
+    .elements {
+      padding: 40px 20px 60px;
     }
 
     .icon-buttons {
@@ -94,32 +102,33 @@
       vertical-align: middle;
     }
 
-    /* Social buttons stacked vertically, low profile */
+    /* Social icons */
     .social-buttons {
-      margin-top: 0.8rem;
+      margin-top: 1.4rem;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      gap: 0.35rem;
+      justify-content: center;
+      gap: 0.6rem;
     }
 
-    .social-buttons .button {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 0.35rem 1rem;      /* slimmer */
-      font-size: 0.9rem;          /* smaller text */
-      border-radius: 999px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-      width: 220px;
-      max-width: 80vw;
+    .social-buttons a {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
     }
 
-    .icon-emoji {
-      display: inline-block;
-      font-size: 1rem; /* smaller icon */
+    .social-buttons a:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
     }
 
     @media (max-width: 600px) {
@@ -131,15 +140,15 @@
         font-size: 1rem;
       }
 
-      .overlay a.button {
+      .wishlist-button {
         font-size: 1rem;
-        padding: 0.8rem 1.5rem;
+        padding: 0.8rem 1.8rem;
       }
 
-      .social-buttons .button {
-        font-size: 0.85rem;
-        padding: 0.3rem 0.8rem;
-        width: 200px;
+      .social-buttons a {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
       }
     }
   </style>
@@ -156,31 +165,18 @@
       <img src="title.png" style="max-width: 600px;width: 100%;">
       <p>More information coming soon...</p>
 
-      <div class="buttons">
-        <a href="mailto:ravinestudiosinc@gmail.com" class="button">
-          <img src="mailIcon.png" class="icon-buttons"> Email
-        </a>
-        <div style="width:50px"></div>
-        <a href="https://store.steampowered.com/app/3810210" class="button">
-          <img src="steamIcon.png" class="icon-buttons"> Wishlist
-        </a>
+      <a href="https://store.steampowered.com/app/3810210" class="wishlist-button">
+        <img src="steamIcon.png" class="icon-buttons"> Wishlist on Steam
+      </a>
+
+      <div class="social-buttons">
+        <a href="https://bsky.app/profile/ravinestudios.ca" target="_blank" rel="noopener" aria-label="Bluesky"><i class="fa-brands fa-bluesky"></i></a>
+        <a href="https://www.instagram.com/ravine_studios" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@ravinestudios" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://x.com/Ravine_Studios" target="_blank" rel="noopener" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
       </div>
 
-      <!-- Slim vertical social buttons -->
-      <div class="social-buttons">
-        <a href="https://bsky.app/profile/ravinestudios.ca" class="button" target="_blank" rel="noopener">
-          <span class="icon-emoji">🦋</span> Bluesky
-        </a>
-        <a href="https://www.instagram.com/ravine_studios" class="button" target="_blank" rel="noopener">
-          <span class="icon-emoji">📸</span> Instagram
-        </a>
-        <a href="https://www.tiktok.com/@ravinestudios" class="button" target="_blank" rel="noopener">
-          <span class="icon-emoji">🎵</span> TikTok
-        </a>
-        <a href="https://x.com/Ravine_Studios" class="button" target="_blank" rel="noopener">
-          <span class="icon-emoji">✖️</span> X (Twitter)
-        </a>
-      </div>
+      <a href="mailto:ravinestudiosinc@gmail.com" class="email-link">ravinestudiosinc@gmail.com</a>
     </div>
   </div>
 </body>
