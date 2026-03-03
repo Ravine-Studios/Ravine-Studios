@@ -131,6 +131,180 @@
       color: #fff;
     }
 
+    /* GDC Trigger Link */
+    .gdc-trigger {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      transition: color 0.25s;
+      cursor: pointer;
+    }
+
+    .gdc-trigger:hover {
+      color: #fff;
+    }
+
+    /* GDC Modal Backdrop */
+    .gdc-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .gdc-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* GDC Modal Panel */
+    .gdc-modal {
+      position: relative;
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 2rem 2rem 1.5rem;
+      max-width: 460px;
+      width: calc(100% - 40px);
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
+      color: #fff;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease;
+    }
+
+    .gdc-backdrop.active .gdc-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .gdc-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, color 0.25s;
+      line-height: 1;
+    }
+
+    .gdc-close:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .gdc-modal h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 0.25rem;
+      letter-spacing: 0.5px;
+    }
+
+    .gdc-subtitle {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0 0 1.5rem;
+    }
+
+    .gdc-events {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gdc-event {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .gdc-event:last-child {
+      padding-bottom: 0;
+    }
+
+    .gdc-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 48px;
+      padding: 0.4rem 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      line-height: 1.1;
+      flex-shrink: 0;
+    }
+
+    .gdc-day {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .gdc-num {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .gdc-month {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .gdc-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding-top: 0.15rem;
+    }
+
+    .gdc-event-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .gdc-event-name:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .gdc-venue {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .gdc-time {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    body.gdc-open {
+      overflow: hidden;
+    }
+
     @media (max-width: 600px) {
       .overlay h1 {
         font-size: 2rem;
@@ -150,6 +324,29 @@
         height: 38px;
         font-size: 1rem;
       }
+
+      .gdc-modal {
+        padding: 1.5rem 1.25rem 1.25rem;
+        border-radius: 14px;
+        max-height: calc(100vh - 40px);
+        width: calc(100% - 32px);
+      }
+
+      .gdc-modal h2 {
+        font-size: 1.15rem;
+      }
+
+      .gdc-event-name {
+        font-size: 0.88rem;
+      }
+
+      .gdc-date {
+        min-width: 42px;
+      }
+
+      .gdc-num {
+        font-size: 1.15rem;
+      }
     }
   </style>
 </head>
@@ -163,7 +360,7 @@
   <div class="overlay">
     <div class="elements">
       <img src="title.png" style="max-width: 600px;width: 100%;">
-      <p>More information coming soon...</p>
+      <p><a href="#" id="gdc-trigger" class="gdc-trigger" onclick="openGdcModal(); return false;">Find us at GDC! &rarr;</a></p>
 
       <a href="https://store.steampowered.com/app/3810210" class="wishlist-button">
         <img src="steamIcon.png" class="icon-buttons"> Wishlist on Steam
@@ -179,6 +376,107 @@
       <a href="mailto:ravinestudiosinc@gmail.com" class="email-link">ravinestudiosinc@gmail.com</a>
     </div>
   </div>
+
+  <!-- GDC Showcases Modal -->
+  <div id="gdc-modal" class="gdc-backdrop" onclick="if(event.target===this)closeGdcModal()">
+    <div class="gdc-modal" role="dialog" aria-labelledby="gdc-title" aria-modal="true">
+      <button class="gdc-close" onclick="closeGdcModal()" aria-label="Close">&times;</button>
+      <h2 id="gdc-title">GDC 2026 Showcases</h2>
+      <p class="gdc-subtitle">Come find us at these events!</p>
+
+      <div class="gdc-events">
+        <div class="gdc-event">
+          <div class="gdc-date">
+            <span class="gdc-day">Sun</span>
+            <span class="gdc-num">8</span>
+            <span class="gdc-month">Mar</span>
+          </div>
+          <div class="gdc-details">
+            <a href="https://courage.events/courage-xl/" target="_blank" rel="noopener" class="gdc-event-name">Courage XL</a>
+            <span class="gdc-time">7:00 PM &ndash; 11:00 PM</span>
+          </div>
+        </div>
+
+        <div class="gdc-event">
+          <div class="gdc-date">
+            <span class="gdc-day">Tue</span>
+            <span class="gdc-num">10</span>
+            <span class="gdc-month">Mar</span>
+          </div>
+          <div class="gdc-details">
+            <a href="https://www.meetup.com/monthly-sf-game-development-community/events/313192282/?recId=14fb54ab-d492-4546-b05b-b7d87817ebd7" target="_blank" rel="noopener" class="gdc-event-name">Indie Arcade Party</a>
+            <span class="gdc-venue">DNA Lounge</span>
+            <span class="gdc-time">7:00 PM &ndash; 12:00 AM</span>
+          </div>
+        </div>
+
+        <div class="gdc-event">
+          <div class="gdc-date">
+            <span class="gdc-day">Wed</span>
+            <span class="gdc-num">11</span>
+            <span class="gdc-month">Mar</span>
+          </div>
+          <div class="gdc-details">
+            <a href="https://gdconf.com/festival-hall/" target="_blank" rel="noopener" class="gdc-event-name">Indie Arcade Festival Hall at GDC!</a>
+            <span class="gdc-time">2:00 PM &ndash; 4:00 PM</span>
+          </div>
+        </div>
+
+        <div class="gdc-event">
+          <div class="gdc-date">
+            <span class="gdc-day">Wed</span>
+            <span class="gdc-num">11</span>
+            <span class="gdc-month">Mar</span>
+          </div>
+          <div class="gdc-details">
+            <a href="https://www.eventbrite.com/e/indie-showcase-by-indie-machine-massive-monster-cam-rogers-legal-tickets-1982271583668?keep_tld=true" target="_blank" rel="noopener" class="gdc-event-name">Indie BYOG Showcase</a>
+            <span class="gdc-time">6:00 PM</span>
+          </div>
+        </div>
+
+        <div class="gdc-event">
+          <div class="gdc-date">
+            <span class="gdc-day">Thu</span>
+            <span class="gdc-num">12</span>
+            <span class="gdc-month">Mar</span>
+          </div>
+          <div class="gdc-details">
+            <a href="https://www.eventbrite.com/e/gamedev-showcase-game-demos-industry-mixer-after-party-tickets-1980451492727" target="_blank" rel="noopener" class="gdc-event-name">GameDev Showcase</a>
+            <span class="gdc-time">2:30 PM &ndash; 12:30 AM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    var backdrop = document.getElementById('gdc-modal');
+
+    function openGdcModal() {
+      backdrop.classList.add('active');
+      document.body.classList.add('gdc-open');
+    }
+
+    function closeGdcModal() {
+      backdrop.classList.remove('active');
+      document.body.classList.remove('gdc-open');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && backdrop.classList.contains('active')) {
+        closeGdcModal();
+      }
+    });
+
+    if (window.location.search.indexOf('gdc') !== -1) {
+      setTimeout(openGdcModal, 300);
+    }
+
+    window.openGdcModal = openGdcModal;
+    window.closeGdcModal = closeGdcModal;
+  })();
+  </script>
 </body>
 
 </html>
