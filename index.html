@@ -276,53 +276,68 @@
   </div>
 
   <!--
-    Generic Modal Template — add a modal by using this pattern:
+    Generic Modal Template — to add a modal:
 
-    <div data-modal="my-id" class="modal-backdrop" onclick="if(event.target===this)closeModal('my-id')">
+    1. Add the HTML:
+    <div id="my-modal" class="modal-backdrop" onclick="if(event.target===this)closeModal('my-param')">
       <div class="modal-panel" role="dialog" aria-modal="true">
-        <button class="modal-close" onclick="closeModal('my-id')" aria-label="Close">&times;</button>
+        <button class="modal-close" onclick="closeModal('my-param')" aria-label="Close">&times;</button>
         <h2>Title</h2>
         <p class="modal-subtitle">Subtitle text</p>
         (your content here)
       </div>
     </div>
 
-    Open via JS:  openModal('my-id')
-    Deep-link:    ?modal=my-id
+    2. Register it (after the main script):
+    <script>registerModal('my-param', document.getElementById('my-modal'));</script>
+
+    Open via JS:  openModal('my-param')
+    Deep-link:    ?my-param (the query param key itself triggers the modal)
   -->
 
   <script>
   (function() {
-    function openModal(id) {
-      var el = document.querySelector('[data-modal="' + id + '"]');
+    // Registry: query param key → DOM element
+    var modals = {};
+    var activeModal = null;
+
+    function registerModal(paramKey, element) {
+      modals[paramKey] = element;
+    }
+
+    function openModal(paramKey) {
+      var el = modals[paramKey];
       if (!el) return;
       el.classList.add('active');
       document.body.classList.add('modal-open');
+      activeModal = paramKey;
     }
 
-    function closeModal(id) {
-      var el = document.querySelector('[data-modal="' + id + '"]');
+    function closeModal(paramKey) {
+      var el = modals[paramKey];
       if (!el) return;
       el.classList.remove('active');
-      if (!document.querySelector('.modal-backdrop.active')) {
-        document.body.classList.remove('modal-open');
-      }
+      document.body.classList.remove('modal-open');
+      activeModal = null;
     }
 
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        var active = document.querySelector('.modal-backdrop.active');
-        if (active) closeModal(active.getAttribute('data-modal'));
+      if (e.key === 'Escape' && activeModal) {
+        closeModal(activeModal);
       }
     });
 
-    // Deep-link: ?modal=<id> opens the matching modal on load
+    // Deep-link: any registered query param key (e.g. ?gdc) opens its modal
     var params = new URLSearchParams(window.location.search);
-    var modalId = params.get('modal');
-    if (modalId) {
-      setTimeout(function() { openModal(modalId); }, 300);
-    }
+    window.addEventListener('DOMContentLoaded', function() {
+      Object.keys(modals).forEach(function(key) {
+        if (params.has(key)) {
+          setTimeout(function() { openModal(key); }, 300);
+        }
+      });
+    });
 
+    window.registerModal = registerModal;
     window.openModal = openModal;
     window.closeModal = closeModal;
   })();

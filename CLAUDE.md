@@ -4,9 +4,12 @@ Static single-page site (`index.html`) with inline CSS and JS.
 
 ## Generic Modal System
 
-The site includes a reusable modal overlay system. To add a new modal:
+The site includes a reusable modal overlay system with a registration-based architecture. To add a new modal:
 
-1. Add HTML with `data-modal="<id>"` and the `modal-backdrop` / `modal-panel` classes (see the template comment in `index.html`)
-2. Open it from JS with `openModal('<id>')`
-3. Deep-link to it via the query param `?modal=<id>` — it auto-opens on page load
-4. Escape key and backdrop click close whichever modal is active
+1. Add HTML with `modal-backdrop` / `modal-panel` classes (see the template comment in `index.html`)
+2. Register it: `registerModal('my-param', document.getElementById('my-modal'))`
+3. Open via JS: `openModal('my-param')`
+4. Deep-link: `?my-param` — the query param **key** triggers the modal on page load
+5. Escape key and backdrop click close whichever modal is active
+
+The query param is the key itself (e.g. `?gdc`, `?announce`), not a value. This lets the same mechanism be extended for other query-param-driven behaviors.
